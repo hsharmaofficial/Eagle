@@ -31,15 +31,29 @@ export default defineConfig({
   },
   build: {
     assetsDir: "assets",
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
         assetFileNames: "assets/[name][extname]",
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-router-dom", "framer-motion"],
+          ui: [
+            "@radix-ui/react-accordion",
+            "@radix-ui/react-alert-dialog",
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-dropdown-menu",
+            "@radix-ui/react-label",
+            "@radix-ui/react-popover",
+            "@radix-ui/react-slot",
+            "@radix-ui/react-tooltip",
+          ],
+          carousel: ["embla-carousel-react", "embla-carousel-autoplay"],
+        },
       },
     },
   },
   server: {
     // @ts-ignore
-    allowedHosts: true,
+    allowedHosts: process.env.TEMPO === "true" ? true : undefined, // Whatever was the previous value or undefined
   },
 });
