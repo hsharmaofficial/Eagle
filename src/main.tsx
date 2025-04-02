@@ -6,13 +6,6 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./components/theme-provider";
 import { TempoDevtools } from "tempo-devtools";
 
-// Import and define lord-icon element
-import lottie from "lottie-web";
-import { defineElement } from "lord-icon-element";
-
-// Initialize lord-icon element
-defineElement(lottie.loadAnimation);
-
 // Initialize Tempo
 TempoDevtools.init();
 

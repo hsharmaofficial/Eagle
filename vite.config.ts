@@ -48,7 +48,15 @@ export default defineConfig({
             "@radix-ui/react-tooltip",
           ],
           carousel: ["embla-carousel-react", "embla-carousel-autoplay"],
+          lottie: ["@lottiefiles/react-lottie-player"],
         },
+      },
+    },
+    minify: "terser",
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
       },
     },
   },
