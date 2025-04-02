@@ -51,6 +51,7 @@
     "framer-motion": "^11.18.0",
     "glob": "^9.3.5",
     "lucide-react": "^0.394.0",
+    "minipass-fetch": "^3.0.3",
     "react": "^18.2.0",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.2.0",
