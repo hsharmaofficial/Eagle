@@ -9,8 +9,7 @@
     "build-no-errors": "tsc ; vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "types:supabase": "npx supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > src/types/supabase.ts",
-    "preinstall": "npx npm-force-resolutions"
+    "types:supabase": "npx supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > src/types/supabase.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",
@@ -72,7 +71,7 @@
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react-swc": "3.5.0",
     "autoprefixer": "^10.4.19",
-    "glob": "^11.0.1",
+    "glob": "^8.1.0",
     "postcss": "^8.4.38",
     "tailwindcss": "3.4.1",
     "tempo-devtools": "^2.0.99",
