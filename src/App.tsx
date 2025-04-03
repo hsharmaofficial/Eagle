@@ -43,6 +43,8 @@ function App() {
               {import.meta.env.VITE_TEMPO === "true" && (
                 <Route path="/tempobook/*" element={null} />
               )}
+              {/* Catch-all route */}
+              <Route path="*" element={<Home />} />
             </Routes>
           </main>
           <Footer />
