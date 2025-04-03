@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import CookieConsent from "./components/CookieConsent";
 import Home from "./components/home";
