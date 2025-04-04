@@ -14,6 +14,13 @@ if (process.env.TEMPO === "true") {
 export default defineConfig({
   optimizeDeps: {
     entries: ["src/main.tsx", "src/tempobook/**/*"],
+    include: [
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "framer-motion",
+      "lucide-react",
+    ],
   },
   plugins: [
     react({
@@ -64,6 +71,9 @@ export default defineConfig({
   },
   server: {
     // @ts-ignore
-    allowedHosts: process.env.TEMPO === "true" ? true : undefined, // Whatever was the previous value or undefined
+    allowedHosts: process.env.TEMPO === "true" ? true : undefined,
+    port: 3000,
+    open: true,
+    cors: true,
   },
 });

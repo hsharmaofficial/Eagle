@@ -13,7 +13,7 @@ const Logo = ({ className = "h-16 w-auto" }: LogoProps) => {
       <img
         src="https://res.cloudinary.com/dsegbtegv/image/upload/v1740843828/EE_q7uckg.png"
         alt="Eagle Eye Enterprise Logo"
-        className="h-20 w-auto"
+        className={className}
       />
     </div>
   );

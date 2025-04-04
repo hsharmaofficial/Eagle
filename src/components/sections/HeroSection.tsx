@@ -12,9 +12,9 @@ interface HeroSectionProps {
 const HeroSection = ({
   headline = "Never Let Your Machines Break Down – Stay Cool with Eagle Eye!",
   subheadline = "EAGLE EYE – EXPERTS IN PANEL AC & CHILLER MAINTENANCE\n\nPANEL AC • CHILLER • HVAC & OTHER COOLING UNITS – WE KEEP THEM RUNNING!\n\n80% of machine failures happen due to cooling issues—DON'T LET YOUR BUSINESS SUFFER!",
-
   ctaText = "Request a Quote",
   onCtaClick = () => {
+    // Using React-friendly approach for smooth scrolling
     const contactSection = document.getElementById("contact");
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: "smooth" });

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "../ui/card";
 import { motion } from "framer-motion";
+import { setupScrollAnimations } from "../../lib/animations";
 
 interface ServiceProps {
   title: string;
@@ -43,6 +44,12 @@ const defaultServices: ServiceProps[] = [
 const EnhancedServices = ({
   services = defaultServices,
 }: EnhancedServicesProps) => {
+  // Initialize scroll animations when component mounts
+  useEffect(() => {
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, []);
+
   return (
     <section
       id="enhanced-services"

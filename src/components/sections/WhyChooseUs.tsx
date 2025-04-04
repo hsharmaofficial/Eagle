@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "../ui/card";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { setupScrollAnimations } from "../../lib/animations";
 import { Award, Users, Badge, Cog, Clock } from "lucide-react";
 
 const WhyChooseUs = () => {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
+  // Initialize scroll animations when component mounts
+  useEffect(() => {
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, []);
 
   const reasons = [
     {

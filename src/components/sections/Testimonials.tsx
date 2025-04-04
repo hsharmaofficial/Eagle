@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "../ui/card";
 import { motion } from "framer-motion";
+import { setupScrollAnimations } from "../../lib/animations";
 import { Star } from "lucide-react";
 
 interface TestimonialProps {
@@ -72,6 +73,12 @@ const defaultTestimonials = [
 const Testimonials = ({
   testimonials = defaultTestimonials,
 }: TestimonialProps) => {
+  // Initialize scroll animations when component mounts
+  useEffect(() => {
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, []);
+
   return (
     <section className="w-full py-20 px-4 md:px-8 bg-background flex items-center">
       <div className="max-w-7xl mx-auto">

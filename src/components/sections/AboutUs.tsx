@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "../ui/card";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Settings, Wrench, Clock, Users } from "lucide-react";
+import { setupScrollAnimations } from "@/lib/animations";
 
 const AboutUs = () => {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
+
+  // Set up scroll animations when component mounts
+  useEffect(() => {
+    // Setup scroll animations and store cleanup function
+    const cleanupScrollAnimations = setupScrollAnimations();
+
+    // Clean up event listeners when component unmounts
+    return () => {
+      cleanupScrollAnimations();
+    };
+  }, []);
 
   const services = [
     {
@@ -42,6 +54,7 @@ const AboutUs = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
+          data-animate="fade-in"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
             20+ Years of Excellence in Cooling & Industrial Cleaning Solutions
@@ -63,6 +76,7 @@ const AboutUs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              data-animate="fade-in-up"
             >
               <Card className="p-6 bg-card/80 backdrop-blur-sm border-border hover:border-primary/50 transition-all">
                 <div className="w-12 h-12 bg-gradient-to-r from-[#2563eb] to-[#ec4899] rounded-lg p-2 mb-4 flex items-center justify-center">

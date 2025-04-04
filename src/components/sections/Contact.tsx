@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin } from "lucide-react";
 import QuoteRequestForm from "../forms/QuoteRequestForm";
 import { useForm } from "react-hook-form";
+import { setupScrollAnimations } from "../../lib/animations";
 
 const Contact = () => {
+  // Initialize scroll animations when component mounts
+  useEffect(() => {
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, []);
+
   return (
     <section
       id="contact"
