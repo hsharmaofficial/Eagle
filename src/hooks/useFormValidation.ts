@@ -88,7 +88,7 @@ export function useFormValidation<T extends Record<string, any>>(
     // Mark all fields as touched
     const allTouched = Object.keys(values).reduce(
       (acc, key) => ({ ...acc, [key]: true }),
-      {} as Record<keyof T, boolean>,
+      {} as Partial<Record<keyof T, boolean>>,
     );
     setTouched(allTouched);
 
@@ -115,7 +115,7 @@ export function useFormValidation<T extends Record<string, any>>(
   const reset = useCallback(() => {
     setValues(initialValues);
     setErrors({});
-    setTouched({} as Record<keyof T, boolean>);
+    setTouched({} as Partial<Record<keyof T, boolean>>);
     setIsSubmitting(false);
   }, [initialValues]);
 
