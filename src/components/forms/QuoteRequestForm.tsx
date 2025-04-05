@@ -109,8 +109,14 @@ const QuoteRequestForm = ({
       // In production, uncomment the actual API call below
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
+      // Define API response type
+      type ApiResponse = {
+        success: boolean;
+        message?: string;
+      };
+
       // Simulated successful response
-      const result = { success: true };
+      const result: ApiResponse = { success: true };
 
       /* Actual API call - uncomment in production
       const response = await fetch("https://api.web3forms.com/submit", {

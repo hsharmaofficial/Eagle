@@ -12,7 +12,7 @@ const Logo = ({ className, size = "medium" }: LogoProps) => {
   // Define size classes based on the size prop
   const sizeClasses = {
     small: "h-6",
-    medium: "h-8", // Increased to h-8 which is 32px for better visibility
+    medium: "h-10", // Increased to h-10 which is 40px for better visibility
     large: "h-12",
   };
 
