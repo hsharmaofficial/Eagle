@@ -11,9 +11,9 @@ const Logo = ({ className, size = "medium" }: LogoProps) => {
 
   // Define size classes based on the size prop
   const sizeClasses = {
-    small: "h-8 w-auto",
-    medium: "h-12 w-auto",
-    large: "h-16 w-auto",
+    small: "h-4",
+    medium: "h-[18px]",
+    large: "h-8",
   };
 
   // Use the provided className or default to the size class
