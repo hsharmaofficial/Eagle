@@ -18,7 +18,7 @@ const defaultServices: ServiceProps[] = [
   {
     title: "Panel AC & Chiller Maintenance",
     description:
-      "Expert installation, annual maintenance contracts, repair, and servicing for all commercial cooling systems.",
+      "Expert installation, annual maintenance contracts, repair, and servicing for all commercial cooling systems including Panel ACs, Chillers, and HVAC systems to prevent 80% of machine failures caused by cooling issues.",
     icon: "https://api.iconify.design/mdi:air-conditioner.svg?color=%232563eb", // AC/Cooling icon
     features: [
       "Panel AC Maintenance",
@@ -28,15 +28,15 @@ const defaultServices: ServiceProps[] = [
     ],
   },
   {
-    title: "Industrial Washing Machines",
+    title: "Industrial Component Washing",
     description:
-      "Comprehensive solutions for industrial washing machines including installation, maintenance, repairs, and sales.",
+      "High-precision component washing services using advanced hydrocarbon-based washing technology for automotive parts and industrial components, ensuring thorough cleaning of porous components and removal of contaminants.",
     icon: "https://api.iconify.design/mdi:washing-machine.svg?color=%232563eb", // Washing icon
     features: [
-      "Installation & Setup",
-      "Annual Maintenance Contracts",
-      "Repairs & Servicing",
-      "Sales & Spare Parts",
+      "Hydrocarbon-Based Cleaning",
+      "Precision Component Washing",
+      "Eco-Friendly Solutions",
+      "Industry-Leading Technology",
     ],
   },
 ];

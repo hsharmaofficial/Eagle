@@ -24,11 +24,11 @@ interface ServiceShowcaseProps {
 
 const defaultServices: ServiceCardProps[] = [
   {
-    title: "AC Services",
+    title: "Panel AC & Chiller Services",
     description:
-      "Professional AC installation, maintenance, and repair services for residential and commercial properties.",
+      "Expert installation, annual maintenance contracts, repair, and servicing for all commercial cooling systems including Panel ACs, Chillers, and HVAC systems.",
     imageUrl:
-      "https://images.unsplash.com/photo-1621532316674-6eec9f6e56d9?auto=format&fit=crop&q=80&w=500",
+      "https://res.cloudinary.com/dsegbtegv/image/upload/v1741676291/20190313_115947_igzox0.jpg",
     features: [
       "24/7 Emergency Support",
       "Annual Maintenance Contracts",
@@ -37,11 +37,11 @@ const defaultServices: ServiceCardProps[] = [
     ],
   },
   {
-    title: "Industrial Washing Machine Services",
+    title: "Industrial Component Washing Services",
     description:
-      "Expert maintenance and repair services for industrial washing machines and laundry equipment.",
+      "Advanced hydrocarbon-based washing technology for precision cleaning of automotive and industrial components with superior contaminant removal.",
     imageUrl:
-      "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&q=80&w=500",
+      "https://res.cloudinary.com/dsegbtegv/image/upload/v1741669127/IMG_1455_knuv5o.jpg",
     features: [
       "Hydrocarbon-Based Cleaning",
       "Precision Component Washing",
