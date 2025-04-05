@@ -21,9 +21,7 @@ export function useFormValidation<T extends Record<string, any>>(
 ) {
   const [values, setValues] = useState<T>(initialValues);
   const [errors, setErrors] = useState<ValidationErrors<T>>({});
-  const [touched, setTouched] = useState<Record<keyof T, boolean>>(
-    {} as Record<keyof T, boolean>,
-  );
+  const [touched, setTouched] = useState<Partial<Record<keyof T, boolean>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Handle field change
