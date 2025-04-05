@@ -37,7 +37,7 @@ export function useFormValidation<T extends Record<string, any>>(
       // Validate field if it's been touched
       if (touched[name as keyof T]) {
         const fieldRule = validationRules[name as keyof T];
-        if (fieldRule && !fieldRule(value)) {
+        if (fieldRule && !fieldRule(value as T[keyof T])) {
           setErrors((prev) => ({ ...prev, [name]: `Invalid ${name}` }));
         } else {
           setErrors((prev) => {
@@ -63,7 +63,7 @@ export function useFormValidation<T extends Record<string, any>>(
 
       // Validate field on blur
       const fieldRule = validationRules[name as keyof T];
-      if (fieldRule && !fieldRule(values[name as keyof T])) {
+      if (fieldRule && !fieldRule(values[name as keyof T] as T[keyof T])) {
         setErrors((prev) => ({ ...prev, [name]: `Invalid ${name}` }));
       } else {
         setErrors((prev) => {
