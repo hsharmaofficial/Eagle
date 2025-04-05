@@ -72,6 +72,7 @@ export default defineConfig({
   server: {
     // @ts-ignore
     allowedHosts: process.env.TEMPO === "true" ? true : undefined,
+    hmr: { overlay: true },
     port: 3000,
     open: false, // Disable automatic browser opening
     cors: true,
