@@ -73,7 +73,7 @@ export default defineConfig({
     // @ts-ignore
     allowedHosts: process.env.TEMPO === "true" ? true : undefined,
     port: 3000,
-    open: true,
+    open: false, // Disable automatic browser opening
     cors: true,
   },
 });

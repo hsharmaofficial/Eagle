@@ -52,7 +52,7 @@ const Navbar = ({
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="/" className="flex items-center">
-              <Logo />
+              <Logo size="medium" />
             </a>
           </div>
 

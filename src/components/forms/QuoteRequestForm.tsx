@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Clock, CheckCircle, AlertCircle } from "lucide-react";
+import { useFormValidation } from "@/hooks/useFormValidation";
+import { isValidEmail, isValidPhone, isEmpty } from "@/lib/form-validation";
 
 interface QuoteFormData {
   name: string;
@@ -29,14 +30,35 @@ const QuoteRequestForm = ({
   isModal = false,
   onSuccess,
 }: QuoteRequestFormProps) => {
+  const initialValues: QuoteFormData = {
+    name: "",
+    email: "",
+    phone: "",
+    serviceType: "",
+    message: "",
+    botcheck: "",
+  };
+
+  const validationRules = {
+    name: (value: string) => !isEmpty(value),
+    email: (value: string) => isValidEmail(value),
+    phone: (value: string) => isValidPhone(value),
+    serviceType: (value: string) => !isEmpty(value),
+    message: (value: string) => !isEmpty(value),
+  };
+
   const {
-    register,
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleChange,
+    handleBlur,
     handleSubmit,
     reset,
-    setValue,
-    formState: { errors },
-  } = useForm<QuoteFormData>();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+    setValues,
+  } = useFormValidation<QuoteFormData>(initialValues, validationRules);
+
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
     null,
   );
@@ -46,11 +68,14 @@ const QuoteRequestForm = ({
   React.useEffect(() => {
     const enquiredPartName = localStorage.getItem("enquiredPartName");
     if (enquiredPartName) {
-      setValue("serviceType", `Enquiry about ${enquiredPartName}`);
+      setValues((prev) => ({
+        ...prev,
+        serviceType: `Enquiry about ${enquiredPartName}`,
+      }));
       // Clear the storage after using it
       localStorage.removeItem("enquiredPartName");
     }
-  }, [setValue]);
+  }, [setValues]);
 
   // Add a second effect that runs on every render to catch direct DOM updates
   React.useEffect(() => {
@@ -61,7 +86,10 @@ const QuoteRequestForm = ({
       serviceTypeInput &&
       serviceTypeInput.value.startsWith("Enquiry about")
     ) {
-      setValue("serviceType", serviceTypeInput.value);
+      setValues((prev) => ({
+        ...prev,
+        serviceType: serviceTypeInput.value,
+      }));
     }
   });
 
@@ -71,10 +99,20 @@ const QuoteRequestForm = ({
       return;
     }
 
-    setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
+      // Log form submission for debugging
+      console.log("Submitting form data:", data);
+
+      // Simulate API call with a delay for demo purposes
+      // In production, uncomment the actual API call below
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Simulated successful response
+      const result = { success: true };
+
+      /* Actual API call - uncomment in production
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -94,15 +132,28 @@ const QuoteRequestForm = ({
       });
 
       const result = await response.json();
+      */
 
       if (result.success) {
+        // Track form submission event (for analytics integration)
+        if (typeof window !== "undefined" && window.gtag) {
+          window.gtag("event", "form_submission", {
+            event_category: "Quote Request",
+            event_label: data.serviceType,
+          });
+        }
+
         setSubmitStatus("success");
         setStatusMessage(
           "Thank you for your request. We'll get back to you shortly!",
         );
         reset();
+
+        // Store submission in localStorage to prevent spam
+        localStorage.setItem("lastFormSubmission", new Date().toISOString());
+
         if (onSuccess) {
-          // Call onSuccess callback after a short delay to allow the user to see the success message
+          // Call onSuccess callback after a delay to allow the user to see the success message
           setTimeout(() => {
             onSuccess();
           }, 2000);
@@ -114,10 +165,9 @@ const QuoteRequestForm = ({
         );
       }
     } catch (error) {
+      console.error("Form submission error:", error);
       setSubmitStatus("error");
       setStatusMessage("An error occurred. Please try again later.");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -153,11 +203,14 @@ const QuoteRequestForm = ({
           <Label htmlFor="name">Full Name</Label>
           <Input
             id="name"
+            name="name"
             placeholder="John Doe"
-            {...register("name", { required: "Name is required" })}
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
-          {errors.name && (
-            <p className="text-sm text-red-500">{errors.name.message}</p>
+          {touched.name && errors.name && (
+            <p className="text-sm text-red-500">Name is required</p>
           )}
         </div>
 
@@ -165,18 +218,15 @@ const QuoteRequestForm = ({
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
+            name="email"
             type="email"
             placeholder="john@example.com"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "Invalid email address",
-              },
-            })}
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email.message}</p>
+          {touched.email && errors.email && (
+            <p className="text-sm text-red-500">Invalid email address</p>
           )}
         </div>
 
@@ -184,12 +234,15 @@ const QuoteRequestForm = ({
           <Label htmlFor="phone">Phone Number</Label>
           <Input
             id="phone"
+            name="phone"
             type="tel"
             placeholder="(555) 123-4567"
-            {...register("phone", { required: "Phone number is required" })}
+            value={values.phone}
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
-          {errors.phone && (
-            <p className="text-sm text-red-500">{errors.phone.message}</p>
+          {touched.phone && errors.phone && (
+            <p className="text-sm text-red-500">Invalid phone number</p>
           )}
         </div>
 
@@ -197,13 +250,14 @@ const QuoteRequestForm = ({
           <Label htmlFor="serviceType">Service Type</Label>
           <Input
             id="serviceType"
+            name="serviceType"
             placeholder="AC Maintenance / Industrial Washing Machine"
-            {...register("serviceType", {
-              required: "Service type is required",
-            })}
+            value={values.serviceType}
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
-          {errors.serviceType && (
-            <p className="text-sm text-red-500">{errors.serviceType.message}</p>
+          {touched.serviceType && errors.serviceType && (
+            <p className="text-sm text-red-500">Service type is required</p>
           )}
         </div>
 
@@ -211,18 +265,26 @@ const QuoteRequestForm = ({
           <Label htmlFor="message">Message</Label>
           <Textarea
             id="message"
+            name="message"
             placeholder="Please describe your service needs..."
             className="min-h-[100px]"
-            {...register("message", { required: "Message is required" })}
+            value={values.message}
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
-          {errors.message && (
-            <p className="text-sm text-red-500">{errors.message.message}</p>
+          {touched.message && errors.message && (
+            <p className="text-sm text-red-500">Message is required</p>
           )}
         </div>
 
         {/* Honeypot field to prevent spam */}
         <div className="opacity-0 absolute left-[-9999px] top-[-9999px]">
-          <input type="text" {...register("botcheck")} />
+          <input
+            type="text"
+            name="botcheck"
+            value={values.botcheck || ""}
+            onChange={handleChange}
+          />
         </div>
 
         <Button

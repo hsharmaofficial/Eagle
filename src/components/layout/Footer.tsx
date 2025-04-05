@@ -1,5 +1,6 @@
 import React from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
+import Logo from "./Logo";
 import { Link } from "react-router-dom";
 import { scrollToSection } from "@/lib/scroll";
 
@@ -17,11 +18,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Company Info */}
         <div>
-          <img
-            src="https://res.cloudinary.com/dsegbtegv/image/upload/v1740843828/EE_q7uckg.png"
-            alt="Eagle Eye Enterprise Logo"
-            className="h-20 w-auto mb-4"
-          />
+          <Logo size="medium" className="mb-4" />
           <p className="text-muted-foreground select-text">
             Leading provider of AC & Industrial Washing Machine solutions in
             Delhi/NCR.
