@@ -7,7 +7,7 @@ const ContactPage = () => {
     <div className="min-h-screen">
       <PageHeader
         title="Contact Us"
-        subtitle="Get in touch with our experts for all your AC & Industrial Washing Machine needs"
+        subtitle="Get in touch with our experts for all your cooling and industrial washing needs"
       />
       <div className="py-20">
         <Contact />
