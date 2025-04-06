@@ -1,5 +1,12 @@
 /// <reference types="vite/client" />
 
-interface Window {
-  gtag?: (command: string, action: string, params?: any) => void;
+interface ImportMetaEnv {
+  readonly VITE_TEMPO: string;
+  readonly VITE_BASE_PATH: string;
+  readonly VITE_SUPABASE_URL: string;
+  readonly VITE_SUPABASE_ANON_KEY: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
 }
