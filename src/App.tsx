@@ -2,13 +2,17 @@ import React, { Suspense, lazy } from "react";
 import { Routes, Route, useRoutes } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
 
-// Lazy load components for better performance
-const Home = lazy(() => import("./components/home"));
+// Lazy load components for better performance with error handling
+const Home = lazy(() =>
+  import("./components/home/index").catch(() => import("./components/home")),
+);
 const AboutPage = lazy(() => import("./pages/about"));
 const ServicesPage = lazy(() => import("./pages/services"));
 const ContactPage = lazy(() => import("./pages/contact"));
 const PrivacyPolicy = lazy(() => import("./pages/privacy-policy"));
 const TermsOfService = lazy(() => import("./pages/terms-of-service"));
+
+// Simple components defined inline to reduce dependencies
 const SparePartsPage = () => (
   <div className="p-8">
     <h1 className="text-2xl font-bold">Spare Parts</h1>
@@ -35,8 +39,8 @@ const ACInstallationPage = () => (
 );
 
 function App() {
-  // Add Tempo routes for development environment
-  if (import.meta.env.VITE_TEMPO === "true") {
+  // Only use Tempo routes in development environment
+  if (import.meta.env.DEV && import.meta.env.VITE_TEMPO === "true") {
     try {
       const routes = require("tempo-routes");
       useRoutes(routes);
@@ -48,13 +52,12 @@ function App() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          Loading...
+        <div className="min-h-screen flex items-center justify-center bg-background">
+          <div className="animate-pulse">Loading...</div>
         </div>
       }
     >
       <MainLayout>
-        {/* Main application routes */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
@@ -69,10 +72,12 @@ function App() {
           />
           <Route path="/ac-maintenance" element={<ACMaintenancePage />} />
           <Route path="/ac-installation" element={<ACInstallationPage />} />
-          {/* Add Tempo route matcher for development environment */}
-          {import.meta.env.VITE_TEMPO === "true" && (
+
+          {/* Add Tempo route matcher only in development environment */}
+          {import.meta.env.DEV && import.meta.env.VITE_TEMPO === "true" && (
             <Route path="/tempobook/*" element={<div />} />
           )}
+
           {/* Catch-all route */}
           <Route path="*" element={<Home />} />
         </Routes>

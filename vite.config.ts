@@ -7,7 +7,7 @@ import { tempo } from "tempo-devtools/dist/vite";
 export default defineConfig({
   plugins: [
     react(),
-    // Only use tempo plugin in Tempo environment
+    // Only use tempo plugin in development environment
     process.env.TEMPO === "true" || process.env.VITE_TEMPO === "true"
       ? tempo()
       : null,
@@ -27,6 +27,11 @@ export default defineConfig({
         main: "./index.html",
       },
     },
+    // Improve error handling during build
+    minify: true,
+    sourcemap: true,
+    reportCompressedSize: true,
+    chunkSizeWarningLimit: 1000,
   },
   server: {
     // @ts-ignore
@@ -38,5 +43,9 @@ export default defineConfig({
     port: 3000,
     open: false,
     cors: true,
+  },
+  // Improve error handling
+  esbuild: {
+    logOverride: { "this-is-undefined-in-esm": "silent" },
   },
 });
