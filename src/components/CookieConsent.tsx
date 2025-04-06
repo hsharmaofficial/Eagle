@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { motion, AnimatePresence } from "framer-motion";
+
+// Import from our fallback wrapper or framer-motion directly
+let motion: any;
+let AnimatePresence: any;
+
+try {
+  const framerMotion = require("framer-motion");
+  motion = framerMotion.motion;
+  AnimatePresence = framerMotion.AnimatePresence;
+} catch (error) {
+  // Use our fallback if framer-motion fails to load
+  const fallback = require("./motion-wrapper");
+  motion = fallback.Motion;
+  AnimatePresence = fallback.AnimatePresence;
+}
 
 const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);

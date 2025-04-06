@@ -1,5 +1,16 @@
 import React from "react";
-import { motion } from "framer-motion";
+
+// Import from our fallback wrapper or framer-motion directly
+let motion: any;
+
+try {
+  const framerMotion = require("framer-motion");
+  motion = framerMotion.motion;
+} catch (error) {
+  // Use our fallback if framer-motion fails to load
+  const fallback = require("../motion-wrapper");
+  motion = fallback.Motion;
+}
 
 interface PageHeaderProps {
   title: string;

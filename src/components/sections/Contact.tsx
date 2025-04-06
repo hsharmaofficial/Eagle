@@ -1,7 +1,18 @@
 import React, { useEffect } from "react";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
-import { motion } from "framer-motion";
+
+// Import from our fallback wrapper or framer-motion directly
+let motion: any;
+
+try {
+  const framerMotion = require("framer-motion");
+  motion = framerMotion.motion;
+} catch (error) {
+  // Use our fallback if framer-motion fails to load
+  const fallback = require("../motion-wrapper");
+  motion = fallback.Motion;
+}
 import { Phone, Mail, MapPin } from "lucide-react";
 import QuoteRequestForm from "../forms/QuoteRequestForm";
 import { useForm } from "react-hook-form";

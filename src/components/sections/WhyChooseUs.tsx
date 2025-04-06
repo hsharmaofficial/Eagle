@@ -1,6 +1,23 @@
 import React, { useEffect } from "react";
 import { Card } from "../ui/card";
-import { motion, useScroll, useTransform } from "framer-motion";
+
+// Import from our fallback wrapper or framer-motion directly
+let motion: any;
+let useScroll: any;
+let useTransform: any;
+
+try {
+  const framerMotion = require("framer-motion");
+  motion = framerMotion.motion;
+  useScroll = framerMotion.useScroll;
+  useTransform = framerMotion.useTransform;
+} catch (error) {
+  // Use our fallback if framer-motion fails to load
+  const fallback = require("../motion-wrapper");
+  motion = fallback.Motion;
+  useScroll = () => ({ scrollYProgress: { current: 0 } });
+  useTransform = (progress: any, from: any, to: any) => 0;
+}
 import { setupScrollAnimations } from "../../lib/animations";
 import { Award, Users, Badge, Cog, Clock } from "lucide-react";
 
