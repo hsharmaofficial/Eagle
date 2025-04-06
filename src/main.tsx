@@ -23,6 +23,14 @@ if (import.meta.env.VITE_TEMPO === "true") {
   }
 }
 
+// Add error handling script for Tempo
+if (import.meta.env.VITE_TEMPO === "true") {
+  const script = document.createElement("script");
+  script.src =
+    "https://api.tempo.new/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/error-handling.js";
+  document.body.appendChild(script);
+}
+
 // Get base path from environment variable or use empty string
 const basename = import.meta.env.VITE_BASE_PATH || "";
 

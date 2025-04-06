@@ -119,25 +119,31 @@ const QuoteRequestForm = ({
       const result: ApiResponse = { success: true };
 
       /* Actual API call - uncomment in production
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: "f6a883af-83c0-42ac-bf31-6561607932d0",
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          service_type: data.serviceType,
-          message: data.message,
-          subject: "New Quote Request from Eagle Eye Enterprise Website",
-          botcheck: data.botcheck,
-        }),
-      });
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: "f6a883af-83c0-42ac-bf31-6561607932d0",
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            service_type: data.serviceType,
+            message: data.message,
+            subject: "New Quote Request from Eagle Eye Enterprise Website",
+            botcheck: data.botcheck,
+          }),
+        });
 
-      const result = await response.json();
+        const result = await response.json();
+        return result;
+      } catch (error) {
+        console.error("API call error:", error);
+        return { success: false, message: "Network error. Please try again." };
+      }
       */
 
       if (result.success) {

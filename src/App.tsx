@@ -1,9 +1,9 @@
 import React, { Suspense, lazy } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useRoutes } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
 
 // Lazy load components for better performance
-const Home = lazy(() => import("./components/home/index"));
+const Home = lazy(() => import("./components/home"));
 const AboutPage = lazy(() => import("./pages/about"));
 const ServicesPage = lazy(() => import("./pages/services"));
 const ContactPage = lazy(() => import("./pages/contact"));
@@ -35,7 +35,15 @@ const ACInstallationPage = () => (
 );
 
 function App() {
-  // Tempo routes removed
+  // Add Tempo routes for development environment
+  if (import.meta.env.VITE_TEMPO === "true") {
+    try {
+      const routes = require("tempo-routes");
+      useRoutes(routes);
+    } catch (error) {
+      console.warn("Tempo routes not available:", error);
+    }
+  }
 
   return (
     <Suspense
@@ -46,7 +54,7 @@ function App() {
       }
     >
       <MainLayout>
-        {/* Tempo routes removed */}
+        {/* Main application routes */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
@@ -61,7 +69,10 @@ function App() {
           />
           <Route path="/ac-maintenance" element={<ACMaintenancePage />} />
           <Route path="/ac-installation" element={<ACInstallationPage />} />
-          {/* Tempo route matcher removed */}
+          {/* Add Tempo route matcher for development environment */}
+          {import.meta.env.VITE_TEMPO === "true" && (
+            <Route path="/tempobook/*" element={<div />} />
+          )}
           {/* Catch-all route */}
           <Route path="*" element={<Home />} />
         </Routes>

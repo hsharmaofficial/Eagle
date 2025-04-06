@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 
 type Theme = "dark" | "light" | "system";
@@ -17,7 +19,7 @@ const ThemeProviderContext = React.createContext<ThemeProviderState>(
   {} as ThemeProviderState,
 );
 
-export function ThemeProvider({
+function ThemeProvider({
   children,
   defaultTheme = "system",
   storageKey = "vite-ui-theme",
@@ -60,11 +62,13 @@ export function ThemeProvider({
   );
 }
 
-export const useTheme = () => {
+function useTheme() {
   const context = React.useContext(ThemeProviderContext);
 
   if (context === undefined)
     throw new Error("useTheme must be used within a ThemeProvider");
 
   return context;
-};
+}
+
+export { ThemeProvider, useTheme };

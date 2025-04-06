@@ -8,7 +8,9 @@ export default defineConfig({
   plugins: [
     react(),
     // Only use tempo plugin in Tempo environment
-    process.env.TEMPO === "true" ? tempo() : null,
+    process.env.TEMPO === "true" || process.env.VITE_TEMPO === "true"
+      ? tempo()
+      : null,
   ].filter(Boolean),
   publicDir: "public",
   base: "",
@@ -28,7 +30,10 @@ export default defineConfig({
   },
   server: {
     // @ts-ignore
-    allowedHosts: process.env.TEMPO === "true" ? true : undefined,
+    allowedHosts:
+      process.env.TEMPO === "true" || process.env.VITE_TEMPO === "true"
+        ? true
+        : undefined,
     hmr: { overlay: true },
     port: 3000,
     open: false,
