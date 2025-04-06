@@ -13,7 +13,7 @@ export default defineConfig({
       : null,
   ].filter(Boolean),
   publicDir: "public",
-  base: "",
+  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

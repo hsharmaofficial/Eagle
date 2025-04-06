@@ -6,7 +6,10 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./components/theme-provider";
 
 // Initialize Tempo Devtools only in development environment
-if (import.meta.env.DEV && import.meta.env.VITE_TEMPO === "true") {
+if (
+  import.meta.env.MODE === "development" &&
+  import.meta.env.VITE_TEMPO === "true"
+) {
   try {
     import("tempo-devtools")
       .then((module) => {
@@ -23,8 +26,8 @@ if (import.meta.env.DEV && import.meta.env.VITE_TEMPO === "true") {
   }
 }
 
-// Get base path from environment variable or use empty string
-const basename = import.meta.env.VITE_BASE_PATH || "";
+// Get base path from environment variable or use root
+const basename = import.meta.env.VITE_BASE_PATH || "/";
 
 // Error handler for React rendering
 window.addEventListener("error", (event) => {

@@ -40,7 +40,10 @@ const ACInstallationPage = () => (
 
 function App() {
   // Only use Tempo routes in development environment
-  if (import.meta.env.DEV && import.meta.env.VITE_TEMPO === "true") {
+  if (
+    import.meta.env.MODE === "development" &&
+    import.meta.env.VITE_TEMPO === "true"
+  ) {
     try {
       const routes = require("tempo-routes");
       useRoutes(routes);
@@ -74,9 +77,10 @@ function App() {
           <Route path="/ac-installation" element={<ACInstallationPage />} />
 
           {/* Add Tempo route matcher only in development environment */}
-          {import.meta.env.DEV && import.meta.env.VITE_TEMPO === "true" && (
-            <Route path="/tempobook/*" element={<div />} />
-          )}
+          {import.meta.env.MODE === "development" &&
+            import.meta.env.VITE_TEMPO === "true" && (
+              <Route path="/tempobook/*" element={<div />} />
+            )}
 
           {/* Catch-all route */}
           <Route path="*" element={<Home />} />
