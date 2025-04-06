@@ -6,7 +6,7 @@ import Footer from "./components/layout/Footer";
 import { MessageCircle } from "lucide-react";
 
 // Lazy load components for better performance
-const Home = lazy(() => import("./components/home"));
+const Home = lazy(() => import("./components/home/index"));
 const AboutPage = lazy(() => import("./pages/about"));
 const ServicesPage = lazy(() => import("./pages/services"));
 const ContactPage = lazy(() => import("./pages/contact"));
