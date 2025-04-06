@@ -5,31 +5,18 @@ import MainLayout from "./components/layout/MainLayout";
 // Import Home component directly to avoid issues
 import Home from "./components/home";
 
-="tel"
-                  className="w-full p-2 border border-border rounded-md"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Installation Type
-                </label>
-                <select className="w-full p-2 border border-border rounded-md">
-                  <option>Panel AC</option>
-                  <option>Chiller</option>
-                  <option>HVAC System</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <button className="w-full bg-gradient-to-r from-[#2563eb] to-[#ec4899] text-white py-2 rounded-md hover:opacity-90 transition-opacity">
-                Request Quote
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+// Import internal pages directly to avoid lazy loading issues
+import ACInstallationPage from "./pages/ac-installation";
+import ACMaintenancePage from "./pages/ac-maintenance";
+import IndustrialWashingPage from "./pages/industrial-washing";
+import SparePartsPage from "./pages/spare-parts";
+
+// Lazy load other pages for better performance
+const AboutPage = lazy(() => import("./pages/about"));
+const ServicesPage = lazy(() => import("./pages/services"));
+const ContactPage = lazy(() => import("./pages/contact"));
+const PrivacyPolicy = lazy(() => import("./pages/privacy-policy"));
+const TermsOfService = lazy(() => import("./pages/terms-of-service"));
 
 function App() {
   // Only use Tempo routes in development environment
