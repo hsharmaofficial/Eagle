@@ -1,6 +1,6 @@
 import path from "path";
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import { tempo } from "tempo-devtools/dist/vite";
 
 const conditionalPlugins: [string, Record<string, any>][] = [];
@@ -22,12 +22,7 @@ export default defineConfig({
       "lucide-react",
     ],
   },
-  plugins: [
-    react({
-      plugins: conditionalPlugins,
-    }),
-    tempo(),
-  ],
+  plugins: [react(), tempo()],
   publicDir: "public",
   base: "",
   resolve: {

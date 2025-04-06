@@ -4,10 +4,24 @@ import App from "./App";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./components/theme-provider";
-import { TempoDevtools } from "tempo-devtools";
 
-// Initialize Tempo
-TempoDevtools.init();
+// Initialize Tempo Devtools if available
+let TempoDevtools;
+try {
+  if (import.meta.env.VITE_TEMPO === "true") {
+    // Only import in Tempo environment
+    import("tempo-devtools")
+      .then((module) => {
+        TempoDevtools = module.TempoDevtools;
+        TempoDevtools.init();
+      })
+      .catch((err) => {
+        console.warn("Tempo devtools not available:", err);
+      });
+  }
+} catch (error) {
+  console.warn("Tempo devtools initialization failed:", error);
+}
 
 const basename = import.meta.env.VITE_BASE_PATH || "";
 

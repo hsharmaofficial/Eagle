@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { Routes, Route, useRoutes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
 
 // Lazy load components for better performance
@@ -7,20 +7,8 @@ const Home = lazy(() => import("./components/home/index"));
 const AboutPage = lazy(() => import("./pages/about"));
 const ServicesPage = lazy(() => import("./pages/services"));
 const ContactPage = lazy(() => import("./pages/contact"));
-
-// Create placeholder components for pages that don't exist yet
-const PrivacyPolicy = () => (
-  <div className="p-8">
-    <h1 className="text-2xl font-bold">Privacy Policy</h1>
-    <p>Coming soon...</p>
-  </div>
-);
-const TermsOfService = () => (
-  <div className="p-8">
-    <h1 className="text-2xl font-bold">Terms of Service</h1>
-    <p>Coming soon...</p>
-  </div>
-);
+const PrivacyPolicy = lazy(() => import("./pages/privacy-policy"));
+const TermsOfService = lazy(() => import("./pages/terms-of-service"));
 const SparePartsPage = () => (
   <div className="p-8">
     <h1 className="text-2xl font-bold">Spare Parts</h1>
@@ -47,17 +35,7 @@ const ACInstallationPage = () => (
 );
 
 function App() {
-  // Add Tempo routes if in Tempo environment
-  let tempoRoutes = null;
-  if (import.meta.env.VITE_TEMPO === "true") {
-    try {
-      // @ts-ignore - This import is dynamically created by Tempo
-      const routes = require("tempo-routes").default;
-      tempoRoutes = useRoutes(routes);
-    } catch (e) {
-      console.error("Failed to load Tempo routes", e);
-    }
-  }
+  // Tempo routes removed
 
   return (
     <Suspense
@@ -68,8 +46,7 @@ function App() {
       }
     >
       <MainLayout>
-        {/* Render Tempo routes if available */}
-        {tempoRoutes}
+        {/* Tempo routes removed */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
@@ -84,10 +61,7 @@ function App() {
           />
           <Route path="/ac-maintenance" element={<ACMaintenancePage />} />
           <Route path="/ac-installation" element={<ACInstallationPage />} />
-          {/* Add tempo route matcher */}
-          {import.meta.env.VITE_TEMPO === "true" && (
-            <Route path="/tempobook/*" element={null} />
-          )}
+          {/* Tempo route matcher removed */}
           {/* Catch-all route */}
           <Route path="*" element={<Home />} />
         </Routes>
