@@ -13,9 +13,8 @@ if (
   try {
     import("tempo-devtools")
       .then((module) => {
-        const TempoDevtools = module.TempoDevtools;
-        if (TempoDevtools) {
-          TempoDevtools.init();
+        if (module.TempoDevtools) {
+          module.TempoDevtools.init();
         }
       })
       .catch((err) => {
